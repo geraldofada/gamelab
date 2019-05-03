@@ -10,8 +10,8 @@ def main():
 
     window.update()
     while globals.GAME_STARTED:
-        menu.draw()
         window.set_background_color((0,0,0))
+        menu.run()
         window.update()
 
 if __name__ == "__main__":
