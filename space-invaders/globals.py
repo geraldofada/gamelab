@@ -1,5 +1,10 @@
-# 1: easy, 2: medium, 3: hard
-DIFFICULTY = [1, 2, 3]
 GAME_STARTED = True
-HEIGHT = 600
-WIDTH = 800
+HEIGHT = 720
+WIDTH = 1280 
+
+# 0: menu, 1: play, 2: rank
+GAME_STATE = 0
+
+# 0: easy, 1: medium, 2: hard
+DIFFICULTY = 0 
+
