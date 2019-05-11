@@ -68,23 +68,19 @@ class Alien(object):
         self.__setup()
         self.update()
     
-    #TODO: fix the movement and create a function to set the position
     def update(self):
         for i in range(len(self.aliens)):
-            if (self.aliens[i][-1].x >= self.window.width - globals.SCREEN_BORDER - 1 or
-                self.aliens[i][0].x <= globals.SCREEN_BORDER):
+            if (self.aliens[i][0].x < globals.SCREEN_BORDER or
+                self.aliens[i][-1].x + self.aliens[i][-1].width > self.window.width - globals.SCREEN_BORDER):
                 globals.ALIEN_VEL *= -1
-                print("foi")
                 break
 
         for i in range(len(self.aliens)):
             for j in range(len(self.aliens[0])):
-                if (self.aliens[i][j].x >= globals.SCREEN_BORDER and
-                    self.aliens[i][j].x <= self.window.width - globals.SCREEN_BORDER):
                     self.aliens[i][j].x += globals.ALIEN_VEL * self.window.delta_time()
 
-                self.aliens[i][j].update()
-                self.aliens[i][j].draw()
+                    self.aliens[i][j].update()
+                    self.aliens[i][j].draw()
     
     def __setup(self):
         for i in range(len(self.aliens)):
