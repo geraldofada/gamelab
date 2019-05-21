@@ -1,5 +1,5 @@
-HEIGHT = 720
-WIDTH = 1280 
+HEIGHT = 800
+WIDTH = 1020 
 
 # 0: menu, 1: play, 2: rank
 GAME_STATE = 0
@@ -12,4 +12,4 @@ ALIEN_VEL = 80
 RELOAD_TIME = 500 
 
 # aesthetic stuff
-SCREEN_BORDER = 100
+SCREEN_BORDER = 25 
