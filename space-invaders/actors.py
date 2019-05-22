@@ -52,16 +52,17 @@ class Bullet(object):
         self.bullets.append(bullet)
 
     def update(self):
-        if len(self.bullets) > 0:
-            if self.bullets[-1].y + self.bullets[-1].height < 0:
-                self.bullets = []
-
         for i in range(len(self.bullets)):
             for j in range(len(self.aliens)):
                 if self.bullets[i].collided(self.aliens[j]):
                     self.bullets.pop(i)
                     self.aliens.pop(j)
                     break
+            break
+
+        if len(self.bullets) > 0:
+            if self.bullets[-1].y + self.bullets[-1].height < 0:
+                self.bullets = []
 
         for i in range(len(self.bullets)):
             self.bullets[i].y -= self.speed * self.window.delta_time()
@@ -79,17 +80,21 @@ class Alien(object):
 
     def update(self):
         for alien in self.aliens:
-            if (alien.x < globals.SCREEN_BORDER or
-                alien.x + alien.width > self.window.width - globals.SCREEN_BORDER):
-                for alien in self.aliens:
-                    alien.set_position(alien.x, alien.y + 20)
-                globals.ALIEN_VEL *= -1
-                break
-
-        for alien in self.aliens:
             alien.x += globals.ALIEN_VEL * self.window.delta_time()
             alien.update()
             alien.draw()
+
+        for alien in self.aliens:
+            if alien.x < globals.SCREEN_BORDER:
+                for alien in self.aliens:
+                    alien.set_position(alien.x + 1, alien.y + 20)
+                globals.ALIEN_VEL *= -1
+                break
+            elif alien.x + alien.width > self.window.width - globals.SCREEN_BORDER:
+                for alien in self.aliens:
+                    alien.set_position(alien.x - 1, alien.y + 20)
+                globals.ALIEN_VEL *= -1
+                break
 
     def __setup(self):
         for i in range(self.mtx_y):
