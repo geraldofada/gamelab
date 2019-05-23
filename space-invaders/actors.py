@@ -5,9 +5,10 @@ import globals
 
 
 class SpaceShip(object):
-    def __init__(self, window, bullet):
+    def __init__(self, window, bullet, alien):
         self.window = window
         self.bullet = bullet
+        self.alien = alien
         self.keyboard = Keyboard()
         self.sprite = Sprite("./assets/actors/spaceship.png")
         self.speed = 400
@@ -28,6 +29,11 @@ class SpaceShip(object):
                 self.bullet.spawn(self.sprite.x + self.sprite.width/2,
                                   self.sprite.y + 5)
                 self.reload_cron = globals.RELOAD_TIME
+
+        for ali in self.alien.aliens:
+            if ali.x > self.sprite.x:
+                globals.GAME_STATE = 0
+                break
 
         self.reload_cron -= 1
         self.__draw()
