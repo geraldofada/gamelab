@@ -4,9 +4,8 @@ from PPlay.mouse import Mouse
 import globals
 
 class Menu(object):
-    def __init__(self, window, play_obj):
+    def __init__(self, window):
         self.window = window
-        self.play_obj = play_obj
         self.play = Animation("./assets/menu/play.png", 2)
         self.difficulty = Animation("./assets/menu/difc.png", 2)
         self.rank = Animation("./assets/menu/rank.png", 2)
@@ -21,7 +20,6 @@ class Menu(object):
             self.play.set_curr_frame(1)
             if self.mouse.is_button_pressed(1):
                 globals.GAME_STATE = 1
-                self.play_obj.__init__(self.window)
         else:
             self.play.set_curr_frame(0)
 

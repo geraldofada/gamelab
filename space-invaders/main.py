@@ -19,7 +19,7 @@ def main():
     while globals.GAME_STARTED:
         window.set_background_color((0,0,0))
 
-        if keyboard.key_pressed("esc")  and globals.GAME_STATE == 1:
+        if keyboard.key_pressed("esc") and globals.GAME_STATE == 1:
             globals.GAME_STATE = 0
             play.__init__(window)
             window.delay(100)

@@ -31,8 +31,9 @@ class SpaceShip(object):
                 self.reload_cron = globals.RELOAD_TIME
 
         for ali in self.alien.aliens:
-            if ali.x > self.sprite.x:
+            if self.sprite.collided(ali):
                 globals.GAME_STATE = 0
+                globals.GAME_OVER = True
                 break
 
         self.reload_cron -= 1
@@ -44,6 +45,7 @@ class SpaceShip(object):
     def __set_pos(self):
         self.sprite.set_position(self.window.width/2 - self.sprite.width/2,
                                     self.window.height - self.sprite.height - 15)
+
 
 class Bullet(object):
     def __init__(self, window, aliens):
@@ -58,17 +60,16 @@ class Bullet(object):
         self.bullets.append(bullet)
 
     def update(self):
-        for i in range(len(self.bullets)):
-            for j in range(len(self.aliens)):
-                if self.bullets[i].collided(self.aliens[j]):
-                    self.bullets.pop(i)
-                    self.aliens.pop(j)
-                    break
-            break
+        for bullet in self.bullets:
+            for alien in self.aliens:
+                if bullet.collided(alien):
+                    self.bullets.remove(bullet)
+                    self.aliens.remove(alien)
 
         if len(self.bullets) > 0:
-            if self.bullets[-1].y + self.bullets[-1].height < 0:
-                self.bullets = []
+            for bullet in self.bullets:
+                if bullet.y + bullet.height < 0:
+                    self.bullets.remove(bullet)
 
         for i in range(len(self.bullets)):
             self.bullets[i].y -= self.speed * self.window.delta_time()
