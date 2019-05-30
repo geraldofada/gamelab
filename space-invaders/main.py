@@ -10,21 +10,25 @@ def main():
     window.set_title("Space Invaders")
     window.set_background_color((0,0,0))
 
-    keyboard = Keyboard()
-
     menu = Menu(window)
     play = Play(window)
 
     window.update()
+
     while globals.GAME_STARTED:
         window.set_background_color((0,0,0))
 
-        if keyboard.key_pressed("esc") and globals.GAME_STATE == 1:
-            globals.GAME_STATE = 0
+        if globals.GAME_OVER:
             play.__init__(window)
-            window.delay(100)
-        elif keyboard.key_pressed("esc") and globals.GAME_STATE == 0:
-            globals.GAME_STARTED = False
+            globals.GAME_OVER = False
+
+        if globals.SHOW_FPS:
+            window.draw_text(
+                'FPS: {}'.format(1/window.delta_time()),
+                globals.SCREEN_BORDER,
+                globals.SCREEN_BORDER,
+                color=(255,255,255)
+            )
 
         if globals.GAME_STATE == 0:
             menu.run()

@@ -1,5 +1,6 @@
 from PPlay.animation import Animation
 from PPlay.mouse import Mouse
+from PPlay.keyboard import Keyboard
 
 import globals
 
@@ -16,6 +17,9 @@ class Menu(object):
         self.__draw()
     
     def run(self):
+        if Keyboard().key_pressed("esc"):
+            globals.GAME_STARTED = False
+
         if self.mouse.is_over_object(self.play):
             self.play.set_curr_frame(1)
             if self.mouse.is_button_pressed(1):
