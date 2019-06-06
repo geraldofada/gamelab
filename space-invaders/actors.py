@@ -15,7 +15,15 @@ class SpaceShip(object):
         self.sprite = Sprite("./assets/actors/spaceship.png")
 
         self.speed = globals.SPACESHIP_VEL
-        self.reload_cron = 0
+        self.reload_cron = 0 
+        self.reload_time = globals.RELOAD_TIME
+
+        if globals.DIFFICULTY['easy'][0] == True:
+            self.reload_time *= globals.DIFFICULTY['easy'][1]
+        elif globals.DIFFICULTY['medium'][0] == True:
+            self.reload_time *= globals.DIFFICULTY['medium'][1]
+        elif globals.DIFFICULTY['hard'][0] == True:
+            self.reload_time *= globals.DIFFICULTY['hard'][1]
 
         self.__set_pos()
 
@@ -35,12 +43,12 @@ class SpaceShip(object):
                 self.bullet.spawn(
                     self.sprite.x + self.sprite.width / 2, self.sprite.y + 5
                 )
-                self.reload_cron = globals.RELOAD_TIME
+                self.reload_cron = self.reload_time 
 
         for ali in self.alien.aliens:
             if self.sprite.collided(ali):
                 globals.GAME_STATE = 0
-                globals.GAME_OVER = True
+                globals.PLAY_INIT = True
                 break
 
         self.reload_cron -= 1
@@ -84,12 +92,18 @@ class Bullet(object):
 
 
 class Aliens(object):
-    def __init__(self, window, mtx_x, mtx_y):
+    def __init__(self, window, tuple_x_y):
         self.window = window
-        self.mtx_x = mtx_x
-        self.mtx_y = mtx_y
-
+        self.tuple_x_y = tuple_x_y
         self.speed = globals.ALIEN_VEL
+
+        if globals.DIFFICULTY['easy'][0] == True:
+            self.speed *= globals.DIFFICULTY['easy'][1]
+        elif globals.DIFFICULTY['medium'][0] == True:
+            self.speed *= globals.DIFFICULTY['medium'][1]
+        elif globals.DIFFICULTY['hard'][0] == True:
+            self.speed *= globals.DIFFICULTY['hard'][1]
+
         self.aliens = []
         self.__setup()
 
@@ -112,8 +126,8 @@ class Aliens(object):
                 break
 
     def __setup(self):
-        for i in range(self.mtx_y):
-            for j in range(self.mtx_x):
+        for i in range(self.tuple_x_y[1]):
+            for j in range(self.tuple_x_y[0]):
                 alien = Animation("./assets/actors/alien_1.png", 2)
                 alien.set_total_duration(800)
                 alien.play()

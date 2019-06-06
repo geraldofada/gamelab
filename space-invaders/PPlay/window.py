@@ -192,6 +192,11 @@ class Window:
 
         # Finally! BLIT!
         self.screen.blit(font_surface, [x, y])
+    
+    def draw_text_font(self, text, font_path, x, y, font_size=12, color=(255, 255, 255), bg_color=(0,0,0)):
+        font = pygame.font.Font(font_path, font_size)
+        font_surface = font.render(text, True, color, bg_color)
+        self.screen.blit(font_surface, [x, y])
 
     # ---------------------CLASS METHODS--------------------------
     """Returns the drawing surface"""

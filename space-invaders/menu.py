@@ -19,9 +19,6 @@ class Menu(object):
         self.__draw()
 
     def run(self):
-        if Keyboard().key_pressed("esc"):
-            globals.GAME_RUNNING = False
-
         if self.mouse.is_over_object(self.play):
             self.play.set_curr_frame(1)
             if self.mouse.is_button_pressed(1):
@@ -45,6 +42,7 @@ class Menu(object):
                     globals.DIFFICULTY['medium'][0] = False
                     globals.DIFFICULTY['hard'][0] = True
 
+                globals.PLAY_INIT = True
                 self.window.delay(150)
                 self.difficulty_indicator.set_curr_frame(self.difficulty_index)
 

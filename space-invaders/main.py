@@ -19,16 +19,16 @@ def main():
     while globals.GAME_RUNNING:
         window.set_background_color((0, 0, 0))
 
-        if globals.GAME_OVER:
+        if globals.PLAY_INIT:
             play.__init__(window)
-            globals.GAME_OVER = False
+            globals.PLAY_INIT = False
 
         if globals.SHOW_FPS:
-            window.draw_text(
+            window.draw_text_font(
                 "FPS: {}".format(1 / window.delta_time()),
+                './assets/fonts/pixelmix.ttf',
                 globals.SCREEN_BORDER,
-                globals.SCREEN_BORDER,
-                color=(255, 255, 255),
+                globals.SCREEN_BORDER
             )
 
         if globals.GAME_STATE == 0:

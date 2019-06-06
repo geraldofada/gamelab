@@ -1,10 +1,12 @@
 """
 Configurations, may be changed
 """
-SPACESHIP_VEL = 400
 BULLET_VEL = 200
 ALIEN_VEL = 80
-RELOAD_TIME = 500
+
+SPACESHIP_VEL = 400
+RELOAD_TIME = 350
+
 SHOW_FPS = False
 
 
@@ -19,7 +21,8 @@ WIDTH = 1020
 GAME_STATE = 0
 
 GAME_RUNNING = True
-GAME_OVER = False
+PLAY_INIT = False
 
 DIFFICULTY = {"easy": [True, 1], "medium": [False, 2], "hard": [False, 3]}
 
+PLAY_LEVEL = 0
