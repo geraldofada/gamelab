@@ -14,7 +14,7 @@ class Play(object):
         if Keyboard().key_pressed("esc"):
             globals.GAME_OVER = True
             globals.GAME_STATE = 0
-            self.window.delay(100)
+            self.window.delay(150)
 
         self.spaceship.update()
         self.bullet.update()
