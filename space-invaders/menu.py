@@ -28,19 +28,19 @@ class Menu(object):
             self.difficulty.set_curr_frame(1)
             if self.mouse.is_button_pressed(1):
                 self.difficulty_index = (self.difficulty_index + 1) % 3
-                
+
                 if self.difficulty_index == 0:
-                    globals.DIFFICULTY['easy'][0] = True
-                    globals.DIFFICULTY['medium'][0] = False
-                    globals.DIFFICULTY['hard'][0] = False
+                    globals.DIFFICULTY["easy"][0] = True
+                    globals.DIFFICULTY["medium"][0] = False
+                    globals.DIFFICULTY["hard"][0] = False
                 elif self.difficulty_index == 1:
-                    globals.DIFFICULTY['easy'][0] = False
-                    globals.DIFFICULTY['medium'][0] = True
-                    globals.DIFFICULTY['hard'][0] = False
+                    globals.DIFFICULTY["easy"][0] = False
+                    globals.DIFFICULTY["medium"][0] = True
+                    globals.DIFFICULTY["hard"][0] = False
                 elif self.difficulty_index == 2:
-                    globals.DIFFICULTY['easy'][0] = False
-                    globals.DIFFICULTY['medium'][0] = False
-                    globals.DIFFICULTY['hard'][0] = True
+                    globals.DIFFICULTY["easy"][0] = False
+                    globals.DIFFICULTY["medium"][0] = False
+                    globals.DIFFICULTY["hard"][0] = True
 
                 globals.PLAY_INIT = True
                 self.window.delay(150)

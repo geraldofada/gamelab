@@ -26,9 +26,9 @@ def main():
         if globals.SHOW_FPS:
             window.draw_text_font(
                 "FPS: {}".format(1 / window.delta_time()),
-                './assets/fonts/pixelmix.ttf',
+                "./assets/fonts/pixelmix.ttf",
                 globals.SCREEN_BORDER,
-                globals.SCREEN_BORDER
+                globals.SCREEN_BORDER,
             )
 
         if globals.GAME_STATE == 0:

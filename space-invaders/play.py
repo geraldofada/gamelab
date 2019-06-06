@@ -4,6 +4,7 @@ import globals
 
 keyboard = Keyboard()
 
+
 class Play(object):
     def __init__(self, window):
         self.window = window
@@ -23,4 +24,3 @@ class Play(object):
         self.spaceship.update()
         self.bullet.update()
         self.alien.update()
-    

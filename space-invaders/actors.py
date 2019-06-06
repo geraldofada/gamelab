@@ -15,15 +15,15 @@ class SpaceShip(object):
         self.sprite = Sprite("./assets/actors/spaceship.png")
 
         self.speed = globals.SPACESHIP_VEL
-        self.reload_cron = 0 
+        self.reload_cron = 0
         self.reload_time = globals.RELOAD_TIME
 
-        if globals.DIFFICULTY['easy'][0] == True:
-            self.reload_time *= globals.DIFFICULTY['easy'][1]
-        elif globals.DIFFICULTY['medium'][0] == True:
-            self.reload_time *= globals.DIFFICULTY['medium'][1]
-        elif globals.DIFFICULTY['hard'][0] == True:
-            self.reload_time *= globals.DIFFICULTY['hard'][1]
+        if globals.DIFFICULTY["easy"][0] == True:
+            self.reload_time *= globals.DIFFICULTY["easy"][1]
+        elif globals.DIFFICULTY["medium"][0] == True:
+            self.reload_time *= globals.DIFFICULTY["medium"][1]
+        elif globals.DIFFICULTY["hard"][0] == True:
+            self.reload_time *= globals.DIFFICULTY["hard"][1]
 
         self.__set_pos()
 
@@ -43,7 +43,7 @@ class SpaceShip(object):
                 self.bullet.spawn(
                     self.sprite.x + self.sprite.width / 2, self.sprite.y + 5
                 )
-                self.reload_cron = self.reload_time 
+                self.reload_cron = self.reload_time
 
         for ali in self.alien.aliens:
             if self.sprite.collided(ali):
@@ -97,12 +97,12 @@ class Aliens(object):
         self.tuple_x_y = tuple_x_y
         self.speed = globals.ALIEN_VEL
 
-        if globals.DIFFICULTY['easy'][0] == True:
-            self.speed *= globals.DIFFICULTY['easy'][1]
-        elif globals.DIFFICULTY['medium'][0] == True:
-            self.speed *= globals.DIFFICULTY['medium'][1]
-        elif globals.DIFFICULTY['hard'][0] == True:
-            self.speed *= globals.DIFFICULTY['hard'][1]
+        if globals.DIFFICULTY["easy"][0] == True:
+            self.speed *= globals.DIFFICULTY["easy"][1]
+        elif globals.DIFFICULTY["medium"][0] == True:
+            self.speed *= globals.DIFFICULTY["medium"][1]
+        elif globals.DIFFICULTY["hard"][0] == True:
+            self.speed *= globals.DIFFICULTY["hard"][1]
 
         self.aliens = []
         self.__setup()
