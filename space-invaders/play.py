@@ -1,3 +1,5 @@
+from pygame.time import Clock
+
 from actors import Bullet, SpaceShip, Aliens
 from PPlay.keyboard import Keyboard
 import globals
@@ -8,22 +10,27 @@ keyboard = Keyboard()
 class Play(object):
     def __init__(self, window):
         self.window = window
-        self.alien = Aliens(self.window, (5, 2))
-        self.bullet = Bullet(self.window, self.alien.aliens)
-        self.spaceship = SpaceShip(self.window, self.bullet, self.alien)
 
         self.score = 0
-        self.time = 0
         self.level = 1
+        self.time = 0
+        self.multiplier = 0
+        self.difficulty = ""
 
         if globals.DIFFICULTY["easy"][0]:
-            self.difficulty = "Peaceful"
+            self.multiplier = globals.DIFFICULTY["easy"][1]
         elif globals.DIFFICULTY["medium"][0]:
-            self.difficulty = "Easy (x2 Multiplier)"
+            self.multiplier = globals.DIFFICULTY["medium"][1]
         elif globals.DIFFICULTY["hard"][0]:
-            self.difficulty = "Hard (x3 Multiplier)"
-        else:
-            self.difficulty = "?"
+            self.multiplier = globals.DIFFICULTY["hard"][1]
+
+        self.update_difficulty()
+
+        self.alien = Aliens(self.window, (5, 2), self.multiplier)
+        self.bullet = Bullet(self.window, self.alien.aliens)
+        self.spaceship = SpaceShip(
+            self.window, self.bullet, self.alien, self.multiplier
+        )
 
     def run(self):
         if keyboard.key_pressed("esc"):
@@ -31,27 +38,46 @@ class Play(object):
             globals.GAME_STATE = 0
             self.window.delay(150)
 
+        if keyboard.key_pressed("d") and keyboard.key_pressed("b"):
+            self.alien.aliens = []
+            self.window.delay(150)
+
         if len(self.alien.aliens) <= 0:
+            self.time = 0
             self.level += 1
             if self.level == 2:
-                self.alien.__init__(self.window, (5, 3))
+                self.alien.__init__(self.window, (5, 3), self.multiplier)
             elif self.level == 3:
-                self.alien.__init__(self.window, (6, 4))
+                self.alien.__init__(self.window, (6, 4), self.multiplier)
+                self.multiplier += 0.5
             elif self.level == 4:
-                self.alien.__init__(self.window, (8, 5))
+                self.alien.__init__(self.window, (8, 5), self.multiplier)
             elif self.level == 5:
-                self.alien.__init__(self.window, (9, 5))
+                self.alien.__init__(self.window, (9, 5), self.multiplier)
+                self.multiplier += 0.5
             elif self.level == 6:
-                self.alien.__init__(self.window, (11, 5))
+                self.alien.__init__(self.window, (11, 5), self.multiplier)
             elif self.level == 7:
-                self.alien.__init__(self.window, (13, 6))
+                self.alien.__init__(self.window, (13, 6), self.multiplier)
+                self.multiplier += 0.5
+            elif 15 > self.level > 7:
+                self.alien.__init__(self.window, (15, 6), self.multiplier)
+                self.multiplier += 0.1
             else:
-                self.alien.__init__(self.window, (15, 6))
+                self.alien.__init__(self.window, (15, 6), self.multiplier)
 
+            self.update_difficulty()
             self.bullet.__init__(self.window, self.alien.aliens)
+            self.spaceship.__init__(
+                self.window, self.bullet, self.alien, self.multiplier
+            )
+
+        if self.bullet.killed_alien == True:
+            self.score += self.get_score(self.time) * self.multiplier
+            self.bullet.killed_alien = False
 
         self.window.draw_text_font(
-            "SCORE: {}".format(self.score),
+            "SCORE: {0:.2f}".format(self.score),
             "./assets/fonts/pixelmix.ttf",
             globals.SCREEN_BORDER,
             self.window.height - globals.SCREEN_BORDER,
@@ -74,6 +100,15 @@ class Play(object):
         self.spaceship.update()
         self.bullet.update()
         self.alien.update()
+        self.time += self.window.delta_time()
 
     def get_score(self, time):
-        return 10 * (0.95 ** time)
+        return 11.29 * (0.94 ** time)
+
+    def update_difficulty(self):
+        if globals.DIFFICULTY["easy"][0]:
+            self.difficulty = "Peaceful (x{0:.1f} Multiplier)".format(self.multiplier)
+        elif globals.DIFFICULTY["medium"][0]:
+            self.difficulty = "Easy (x{0:.1f} Multiplier)".format(self.multiplier)
+        elif globals.DIFFICULTY["hard"][0]:
+            self.difficulty = "Hard (x{0:.1f} Multiplier)".format(self.multiplier)

@@ -7,7 +7,7 @@ keyboard = Keyboard()
 
 
 class SpaceShip(object):
-    def __init__(self, window, bullet, alien):
+    def __init__(self, window, bullet, alien, multiplier=1):
         self.window = window
         self.bullet = bullet
         self.alien = alien
@@ -16,14 +16,7 @@ class SpaceShip(object):
 
         self.speed = globals.SPACESHIP_VEL
         self.reload_cron = 0
-        self.reload_time = globals.RELOAD_TIME
-
-        if globals.DIFFICULTY["easy"][0] == True:
-            self.reload_time *= globals.DIFFICULTY["easy"][1]
-        elif globals.DIFFICULTY["medium"][0] == True:
-            self.reload_time *= globals.DIFFICULTY["medium"][1]
-        elif globals.DIFFICULTY["hard"][0] == True:
-            self.reload_time *= globals.DIFFICULTY["hard"][1]
+        self.reload_time = globals.RELOAD_TIME * multiplier
 
         self.__set_pos()
 
@@ -66,6 +59,8 @@ class Bullet(object):
         self.window = window
         self.aliens = aliens
 
+        self.killed_alien = False
+
         self.bullets = []
         self.speed = globals.BULLET_VEL
 
@@ -80,6 +75,7 @@ class Bullet(object):
                 if bullet.collided(alien):
                     self.bullets.remove(bullet)
                     self.aliens.remove(alien)
+                    self.killed_alien = True
 
         if len(self.bullets) > 0:
             for bullet in self.bullets:
@@ -92,17 +88,10 @@ class Bullet(object):
 
 
 class Aliens(object):
-    def __init__(self, window, tuple_x_y):
+    def __init__(self, window, tuple_x_y, multiplier=1):
         self.window = window
         self.tuple_x_y = tuple_x_y
-        self.speed = globals.ALIEN_VEL
-
-        if globals.DIFFICULTY["easy"][0] == True:
-            self.speed *= globals.DIFFICULTY["easy"][1]
-        elif globals.DIFFICULTY["medium"][0] == True:
-            self.speed *= globals.DIFFICULTY["medium"][1]
-        elif globals.DIFFICULTY["hard"][0] == True:
-            self.speed *= globals.DIFFICULTY["hard"][1]
+        self.speed = globals.ALIEN_VEL * multiplier
 
         self.aliens = []
         self.__setup()
