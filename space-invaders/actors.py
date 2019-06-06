@@ -57,7 +57,7 @@ class SpaceShip(object):
     def __set_pos(self):
         self.sprite.set_position(
             self.window.width / 2 - self.sprite.width / 2,
-            self.window.height - self.sprite.height - 15,
+            self.window.height - self.sprite.height - 55,
         )
 
 

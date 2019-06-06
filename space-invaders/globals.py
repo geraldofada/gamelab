@@ -23,6 +23,4 @@ GAME_STATE = 0
 GAME_RUNNING = True
 PLAY_INIT = False
 
-DIFFICULTY = {"easy": [True, 1], "medium": [False, 2], "hard": [False, 3]}
-
-PLAY_LEVEL = 0
+DIFFICULTY = {"easy": [True, 1], "medium": [False, 1.5], "hard": [False, 2]}
