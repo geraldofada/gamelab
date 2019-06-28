@@ -2,6 +2,7 @@ from PPlay.keyboard import Keyboard
 from PPlay.window import Window
 from menu import Menu
 from play import Play
+from rank import Rank
 
 import globals
 
@@ -13,6 +14,7 @@ def main():
 
     menu = Menu(window)
     play = Play(window)
+    rank = Rank(window)
 
     window.update()
 
@@ -21,6 +23,7 @@ def main():
 
         if globals.PLAY_INIT:
             play.__init__(window)
+            rank.__init__(window)
             globals.PLAY_INIT = False
 
         if globals.SHOW_FPS:
@@ -35,6 +38,8 @@ def main():
             menu.run()
         elif globals.GAME_STATE == 1:
             play.run()
+        elif globals.GAME_STATE == 2:
+            rank.run()
 
         window.update()
 

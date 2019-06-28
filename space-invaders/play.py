@@ -1,6 +1,7 @@
 from pygame.time import Clock
 
 from actors import Bullet, SpaceShip, Aliens
+from db import Database
 from PPlay.keyboard import Keyboard
 import globals
 
@@ -85,6 +86,25 @@ class Play(object):
             )
             self.lives -= 1
             if self.lives < 0:
+                self.window.draw_text_font(
+                    "GAME OVER!",
+                    "./assets/fonts/pixelmix.ttf",
+                    300,
+                    globals.HEIGHT / 3,
+                    font_size=36
+                )
+
+                self.window.update()
+
+                print("\nGame over!")
+                name = input("What's your name? ")
+
+                while len(name) > 9 or len(name) < 3:
+                    print("Please, enter a name within 3 and 9 characters.\n")
+                    name = input("What's your name? ")
+
+                Database().save_score(name, self.score)
+
                 globals.GAME_STATE = 0
                 globals.PLAY_INIT = True
 
