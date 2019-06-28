@@ -134,17 +134,8 @@ class Aliens(object):
             alien.draw()
 
         for alien in self.aliens:
-            if alien.x < globals.SCREEN_BORDER:
-                for alien in self.aliens:
-                    alien.set_position(alien.x + 1, alien.y + 20)
-                self.speed *= -1
-                break
-            elif alien.x + alien.width > self.window.width - globals.SCREEN_BORDER:
-                for alien in self.aliens:
-                    alien.set_position(alien.x - 1, alien.y + 20)
-                self.speed *= -1
-                break
-
+            if alien.x + alien.width > self.window.width - globals.SCREEN_BORDER:
+                alien.set_position(globals.SCREEN_BORDER, alien.y + 20)
         self.reload_cron -= 1
 
     def __setup(self):
